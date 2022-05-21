@@ -3,6 +3,9 @@ package me.nolanjames.quickpoll.domain;
 import javax.persistence.*;
 import java.util.Set;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 @Entity
 public class Poll {
     @Id
@@ -11,11 +14,13 @@ public class Poll {
     private Long id;
 
     @Column(name = "QUESTION")
+    @NotEmpty
     private String question;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "POLL_ID")
     @OrderBy
+    @Size(min = 2, max = 6)
     private Set<Option> options;
 
     public Long getId() {
